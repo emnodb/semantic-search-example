@@ -1,5 +1,7 @@
 # Semantic Search Example
 
+> Adapted from [pinecone's semantic search example](https://github.com/pinecone-io/semantic-search-example)
+
 In this walkthrough we will see how to use Emno for semantic search.
 
 ## Setup
