@@ -1,0 +1,23 @@
+{
+    "$schema": "https://json.schemastore.org/tsconfig",
+    "display": "Node Library",
+    "extends": "./base.json",
+    "compilerOptions": {
+        "outDir": "../build",
+        "module": "NodeNext",
+        "target": "ES2021",
+        "lib": ["es2021", "dom"],
+        "removeComments": true,
+        "noImplicitAny": true,
+        "inlineSourceMap": true,
+        "noEmitOnError": false,
+        "strictNullChecks": true,
+        "noImplicitReturns": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "declaration": true,
+        "resolveJsonModule": true,
+        "noEmit": false,
+        "allowJs": true
+    }
+}
