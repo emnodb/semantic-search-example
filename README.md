@@ -2,7 +2,7 @@
 
 > Adapted from [pinecone's semantic search example](https://github.com/pinecone-io/semantic-search-example)
 
-In this walkthrough we will see how to use Emno for semantic search.
+In this walkthrough we will see how to use emno for semantic search.
 
 ## Setup
 
@@ -17,7 +17,7 @@ npm install
 
 ### Configuration
 
-In order to run this example, you have to supply the Emno credentials needed to interact with the Emno API. You can find these credentials in the Emno's web console. This project uses `dotenv` to easily load values from the `.env` file into the environment when executing.
+In order to run this example, you have to supply the emno credentials needed to interact with the emno API. You can find these credentials in the emno's web console. This project uses `dotenv` to easily load values from the `.env` file into the environment when executing.
 
 Copy the template file:
 
@@ -37,7 +37,7 @@ EMNO_COLLECTION=semantic-search-try
 
 ## Application structure
 
-There are two main components to this application: the data loader (load.ts) and the search engine (query.ts). The data loader is responsible for loading the data into Emno. The search engine is responsible for querying the index and returning similar results. These two components share a common modules, the `embedder`, which transforms natural language strings into embeddings using the [`sentence-transformers/all-MiniLM-L6-v2`](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) model.
+There are two main components to this application: the data loader (load.ts) and the search engine (query.ts). The data loader is responsible for loading the data into emno. The search engine is responsible for querying the index and returning similar results. These two components share a common modules, the `embedder`, which transforms natural language strings into embeddings using the [`sentence-transformers/all-MiniLM-L6-v2`](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) model.
 
 ## Data Preprocessing
 
@@ -53,9 +53,9 @@ You can find the source here: [embeddings.ts](./src/embeddings.ts)
 
 
 
-## Loading embeddings into Emno
+## Loading embeddings into emno
 
-Now that we have a way to load data and create embeddings, let put the two together and save the embeddings in Emno. In the following section, we get the path of the file we need to process from the command like. We load the CSV file, create the Emno collection and then start the embedding process. The embedding process is done in batches of 100. Once we have a batch of embeddings, we insert them into the index.
+Now that we have a way to load data and create embeddings, let put the two together and save the embeddings in emno. In the following section, we get the path of the file we need to process from the command like. We load the CSV file, create the emno collection and then start the embedding process. The embedding process is done in batches of 100. Once we have a batch of embeddings, we insert them into the index.
 
 See: [load.ts](./src/load.ts)
 
@@ -89,7 +89,7 @@ See: [query.ts](./src/query.ts)
 
 
 
-The querying process is very similar to the indexing process. We create an Emno client, select the index we want to query, and then embed the query. We then use the `query` method to search the index for the most similar embeddings. The `query` method returns a list of matches. Each match contains the metadata associated with the embedding, as well as the score of the match.
+The querying process is very similar to the indexing process. We create an emno client, select the index we want to query, and then embed the query. We then use the `query` method to search the index for the most similar embeddings. The `query` method returns a list of matches. Each match contains the metadata associated with the embedding, as well as the score of the match.
 
 Let's run some queries and see what we get:
 
