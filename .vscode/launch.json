@@ -5,6 +5,19 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Launch Load",
+            "request": "launch",
+            "runtimeArgs": [
+                "run-script",
+                "load-default"
+            ],
+            "runtimeExecutable": "npm",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
+        },
+        {
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
@@ -16,6 +29,7 @@
             "outFiles": [
                 "${workspaceFolder}/build/**/*.js"
             ]
-        }
+        },
+
     ]
 }

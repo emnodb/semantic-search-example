@@ -1,8 +1,8 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion -- needed*/
 /* eslint-disable no-console -- needed*/
 import { config } from 'dotenv';
-import { embedder } from './embeddings';
 import { getEnv, validateEnvironmentVariables } from './utils/util';
-import { Emno } from './emno/index';
+import { Emno } from '@emno/sdk';
 
 config();
 validateEnvironmentVariables();
@@ -11,29 +11,30 @@ export const query = async (queryText: string, topK: number) => {
   validateEnvironmentVariables();
   const emno = new Emno({
     token: getEnv('EMNO_TOKEN'),
+    shouldThrow: true,
   });
 
-  // Target the index/collection
+  // Get collection
   const collectionName = getEnv('EMNO_COLLECTION');
   const collection = await emno.getCollection(collectionName);
-
-  await embedder.init();
-
-  // Embed the query
-  const queryEmbedding = await embedder.emEmbed(queryText);
+  if (!collection) {
+    throw new Error(`Collection ${collectionName} does not exist`);
+  }
 
   const startTime = performance.now();
-  // Query the index using the query embedding
-  const resultsRaw = await emno.query(collection?.id || '', {
-    vectors: [queryEmbedding.values],
-    limit: topK,
+
+  // Query the collection
+  const results = await collection.queryByText({
+    content: [queryText],
+    topK: topK,
   });
+
   // Print the results
-  if (resultsRaw && resultsRaw.length > 0) {
-    const result = resultsRaw[0];
+  if (results && results.length > 0) {
+    const result = results[0];
     console.log(
       result
-        .sort((a, b) => a.distance - b.distance)
+        .sort((a, b) => a.distance! - b.distance!)
         .map((match) => ({
           text: match.content,
           distance: match.distance,
