@@ -43,6 +43,7 @@ export const load = async (csvPath: string, column: string) => {
   // Configure an emno client instance
   const emno = new Emno({
     token: getEnv('EMNO_TOKEN'),
+    shouldThrow: false
   });
 
   // Get collection name name
@@ -62,8 +63,6 @@ export const load = async (csvPath: string, column: string) => {
       },
     });
     console.log(`New Collection created: ${currentCollection!.id}`);
-  } else {
-    throw new Error('Unable to get the collection info');
   }
 
   // Start the progress bar
@@ -94,6 +93,6 @@ export const load = async (csvPath: string, column: string) => {
   console.log(`Process duration: ${duration} milliseconds`);
 
   console.log(
-    `Inserted ${documents.length} documents into index ${collectionName}`
+    `Inserted ${documents.length} documents into collection ${collectionName}`
   );
 };
